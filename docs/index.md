@@ -1,7 +1,10 @@
 # Welcome to MkDocs
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
-TEST
+For full documentation visit [mkdocs.org](https://www.mkdocs.org). 
+
+## TO test
+This is testing whether the site automatically updates after a gh push to main.
+
 ## Commands
 
 * `mkdocs new [dir-name]` - Create a new project.
