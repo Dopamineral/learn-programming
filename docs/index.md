@@ -5,6 +5,9 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 ## TO test
 This is testing whether the site automatically updates after a gh push to main.
 
+## Testing 2
+This is a push to dev, should not update the main site.
+
 ## Commands
 
 * `mkdocs new [dir-name]` - Create a new project.
