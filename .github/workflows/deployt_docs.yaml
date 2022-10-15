@@ -1,6 +1,9 @@
 name: Publish docs via GitHub Pages
 run-name: ${{ github.actor }} is publishing the updated docs.
-on: [push]
+on:
+  push:
+    branches:
+    - main
 
 jobs:
   build:
