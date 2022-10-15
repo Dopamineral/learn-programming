@@ -1,7 +1,7 @@
 site_name: GOB Programming
 site_url: https://programming.glassofbrain.com
 nav:
-  - Blog: https://glassofbrain.com
+  - Blog: https://www.glassofbrain.com/
   - Welcome: index.md
 theme:
   font:
