@@ -1,32 +1,24 @@
-# Welcome to MkDocs
+# Programming
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org). 
+Programming stuff here. Pro tip, look next to the ***search bar*** for ***DARK MODE***
+The *search bar* actually *works* btw!
 
-## TO test
-This is testing whether the site automatically updates after a gh push to main.
+### Content
 
-## Testing 2
-This is a push to dev, should not update the main site.
+- ***Python*** *(programming thing)*
+- ***SQL*** *(underrated but powerful)*
+- ***Cloud*** *(oh yeah)*
+- ***Data Engineering*** *(actually my job bro)*
+- ***Web Design*** *(aw yeah, cool stuff)*
+- ***SaaS*** *(Software as a Service)*
+- ***Behind the blog*** *(insider notes for myself)*
 
-## TEst 3
-test 2 failed, trying again after udating GH actions 
+### Why?
 
+I like to learn and like to share
 
-## Test4 
+### What is this?
 
-Test3 seems to work, pull request to main now and see if it updates
-
-
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+I'm not too sure what I want to do with this part of the site.
+On the one end it might be nice to give like tutorials on how to program,
+but on the other hand there's like an avalance of information out there on the internet for free.

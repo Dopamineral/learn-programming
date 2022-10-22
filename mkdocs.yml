@@ -1,11 +1,23 @@
 site_name: GOB Programming
 site_url: https://programming.glassofbrain.com
+repo_url: https://github.com/Dopamineral/learn-programming
+
 nav:
-  - Blog: https://www.glassofbrain.com/
-  - Welcome: index.md
+  - Glass Of Brain: https://www.glassofbrain.com/
+  - Yo: index.md
+  - Python:
+    - python/index.md
+    - Fundamentals: python/fundamentals.md
+  - SQL:
+    - sql/index.md
+    - Basics: sql/basics.md
+  - Behind The Blog:
+    - blogging/index.md
+    - sandbox: blogging/sandbox.md
 theme:
   font:
-    text: Anybody
+    # text: Anybody
+    text: Poppins
   name: material
   features:
     - navigation.instant
@@ -22,13 +34,16 @@ theme:
   palette:
 
     # Palette toggle for light mode
-    - scheme: default
+    - primary: white
+      accent: amber
       toggle:
         icon: material/lightbulb
         name: Switch to dark mode
 
     # Palette toggle for dark mode
-    - scheme: slate
+    - scheme: slate 
+      primary: black
+      accent: amber
       toggle:
         icon: material/lightbulb-outline
         name: Switch to light mode
@@ -68,7 +83,11 @@ markdown_extensions:
   - pymdownx.keys
   - pymdownx.mark
   - pymdownx.smartsymbols
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.tasklist:
