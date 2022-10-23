@@ -52,6 +52,7 @@ theme:
 
 plugins:
 - search
+- mkdocs-video
 - mkdocstrings:
 
 # watch:
