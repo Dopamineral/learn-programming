@@ -10,6 +10,7 @@ nav:
     - Fundamentals: python/fundamentals.md
   - SQL:
     - sql/index.md
+    - Concepts: sql/concepts.md
     - Basics: sql/basics.md
   - Behind The Blog:
     - blogging/index.md
