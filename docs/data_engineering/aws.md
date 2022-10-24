@@ -1,4 +1,6 @@
 # Amazon Web Services
+
+Outline here follows the [AWS cloud practitioner study guide.](https://aws.amazon.com/certification/certified-cloud-practitioner/) 
 ## Domain 1: Cloud Concepts
 
 ### 1.1 Define the AWS Cloud and its value proposition
