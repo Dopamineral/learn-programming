@@ -1,10 +1,16 @@
-# Language References
+# Structured Query Language
+
+A short overview of most things that you can do in SQL
+### Language References
+
 - [SQL Syntax Wiki](https://en.wikipedia.org/wiki/SQL_syntax)
 - [W3 School SQL](https://www.w3schools.com/sql/default.asp)
 - [Snowflake SQL general reference](https://docs.snowflake.com/en/sql-reference.html)
 - [Snowflake SQL command reference](https://docs.snowflake.com/en/sql-reference-commands.html)
 - [Snowflake SQL functions reference](https://docs.snowflake.com/en/sql-reference-functions.html)
-# Language
+
+### Syntax stuff
+#### Operators
 
 ``` sql title="SQL Operators"
 = -- equal to
@@ -19,6 +25,8 @@ NOT -- not stuff
 IS NULL
 IS NOT NULL
 ```
+
+#### Basics
 
 ``` sql title="Getting stuff out a table"
 SELECT col1, col2, col3, FROM mytab --seleting cols from a table
@@ -68,6 +76,8 @@ DELETE FROM mytab WHERE cond1
 DELETE FROM mytab; -- deletes all values but keeps table structure, beware
 ```
 
+#### Functions 
+
 ``` sql title="SQL Functions"
 SELECT MIN(col1) FROM ... WHERE ...; --smallest value
 SELECT MAX(col1) FROM ... WHERE ...; --biggest value
@@ -75,6 +85,8 @@ SELECT COUNT(col1) FROM ... WHERE cond; -- number of rows matching condition
 SELECT AVG(col1) FROM ... WHERE ...; -- average value
 SELECT SUM(col1) FROM ... WHERE ...; -- sum value
 ```
+
+#### Pattern matching
 
 ```sql title="pattern matching with LIKE"
 SELECT ...
@@ -98,6 +110,8 @@ SELECT ... FROM ... WHERE col IN (SELECT ...)
 SELECT ... FROM ... WHERE col BETWEEN val1 AND val2
 ```
 
+#### Aliases 
+
 ```sql title="SQL Aliases - Columns & Tables "
 -- Alias Columns
 SELECT col1 AS alias1, col2 AS col_alias
@@ -116,7 +130,7 @@ WHERE a.col=cond AND b.col=cond
 
 
 
-# Abbreviations
+### Abbreviations
 ??? abstract "SQL"
     Structured Query Language
 ??? abstract "RDBMS"
@@ -135,7 +149,7 @@ WHERE a.col=cond AND b.col=cond
     International Organization for Standardization
 
 
-# Concepts
+### Concepts
 
 ??? note "Types of SQL statements (sublanguages)?"
     - DQL
