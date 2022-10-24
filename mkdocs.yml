@@ -4,7 +4,10 @@ repo_url: https://github.com/Dopamineral/learn-programming
 
 nav:
   - Glass Of Brain: https://www.glassofbrain.com/
-  - Yo: index.md
+  - Home: index.md
+  - Data Engineering: 
+    - data_engineering/index.md
+    - AWS: data_engineering/aws.md
   - Python:
     - python/index.md
     - Fundamentals: python/fundamentals.md
