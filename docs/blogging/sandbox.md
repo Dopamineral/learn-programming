@@ -271,6 +271,4 @@ The HTML specification is maintained by the W3C.
 ![type:video](https://www.youtube.com/embed/LXb3EKWsInQ)
 
 ## Embedding video that's hosted on aws cloudfront
-<video controls autoplay muted>
-    <source src="https://d1x5drv0tjtca9.cloudfront.net/fibre_cli_cli-skeleton.mkv" type="video/mp4">
-</video>
+It works, I just need to get a different video here. Copyright reasons.

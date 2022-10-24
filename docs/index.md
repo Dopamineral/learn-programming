@@ -22,3 +22,6 @@ I like to learn and like to share
 I'm not too sure what I want to do with this part of the site.
 On the one end it might be nice to give like tutorials on how to program,
 but on the other hand there's like an avalance of information out there on the internet for free.
+
+## This part is forked from another account
+Will this end up on the site succesfully?
