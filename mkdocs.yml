@@ -7,7 +7,9 @@ nav:
   - Home: index.md
   - Data Engineering: 
     - data_engineering/index.md
-    - AWS: data_engineering/aws.md
+    - AWS CP Theory: data_engineering/aws_cp_theory.md
+    - AWS CP Questions: data_engineering/aws_cp_questions.md
+    - Install DBT Locally: data_engineering/install_dbt.md
   - Python:
     - python/index.md
     - Fundamentals: python/fundamentals.md
