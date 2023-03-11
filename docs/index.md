@@ -6,6 +6,7 @@ The *search bar* actually *works* btw!
 ### Content
 
 - ***Python*** *(programming thing)*
+- **Javascript** (website stuff)
 - ***SQL*** *(underrated but powerful)*
 - ***Cloud*** *(oh yeah)*
 - ***Data Engineering*** *(actually my job bro)*

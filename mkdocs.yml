@@ -13,6 +13,11 @@ nav:
   - Python:
     - python/index.md
     - Fundamentals: python/fundamentals.md
+  - Javascript:
+    - javascript/index.md
+    - Objects: javascript/objects.md
+    - Strings: javascript/strings.md
+    - Arrays: javascript/arrays.md
   - SQL:
     - sql/index.md
     - Language: sql/language.md
