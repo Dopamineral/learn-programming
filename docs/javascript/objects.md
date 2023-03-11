@@ -188,4 +188,98 @@ console.log(info) // will not exist
 console.log(movieTitle) // works!
 
 ```
-  
+
+## Checking property existance
+
+```js
+if ('key' in myObject){...} // check if key is there
+
+if (myObject.key === undefined) // same thing
+
+
+```
+
+## this
+A special keyword with regards to objects
+
+It's the same as `self` in python
+
+```js
+const myObject= {
+    title: "The Movie Title"
+    getFormattedTitle: function(){
+        return this.title.toUpperCase() 
+    }
+}
+```
+sometimes the "this" is not referring to the object, but to something else that has called it. 
+You can point it back to the thing you want by using the `bind()` function
+
+inside a function, "this" always refers to the think that called it. (so what's in front of the function)
+
+```js
+const a = getFormattedTitle.bind(myObject) // execute on an object
+const b = getFormattedTitle.call(myObject, arg1, arg2, arg3) // call the function
+const c = getFormattedTitle.apply(myObject, [arg1, arg2, arg3])
+
+
+```
+
+!!! info "debugging this"
+    this can sometimes be a bit weird. `console.log(this)` is a good way to figure out what context it belongs to when it doesn't behave as expected.
+
+    The reason that it can behave unexpected is because it refers to what is calling the function, this could be the object, but could also be a bigger global scope or an eventlistener for example.
+
+
+## method shorthand syntax
+
+```js
+const myObject= {
+    title: "The Movie Title"
+    getFormattedTitle: function(){
+        return this.title.toUpperCase() 
+    }
+}
+const myObject= {
+    title: "The Movie Title"
+    //same as method above, but shorter 
+    getFormattedTitle(){
+        return this.title.toUpperCase() 
+    }
+}
+
+```
+## Getters & Setters
+
+- get = retrieving thing
+- set  = assinging thing
+
+to customize how the get and set happens, you can use getters and setters.
+
+```js
+
+const myObject = {
+    // customise what happens when people try to assign something tot title
+    set title(value){
+        if (valuel.trim()===''){
+            this._title= "DEFAULT VALUE"
+        }
+
+        this._title = value
+
+        }
+    // customize what happens when people try to retrieve the title. 
+    get title(){
+        return this._title
+
+    }
+}
+
+// getter activated
+const newThing = myObject.title // just get stuff like this
+
+//setter activated
+myObject.title = 3 // just add stuff like normally
+
+```
+
