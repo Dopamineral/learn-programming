@@ -1,0 +1,1811 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://programming.glassofbrain.com/data_engineering/aws_cp_theory/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+    
+    
+      
+        <title>AWS CP Theory - GOB Programming</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="amber">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cloud-practitioner-theory" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="GOB Programming" class="md-header__button md-logo" aria-label="GOB Programming" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GOB Programming
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              AWS CP Theory
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Dopamineral/learn-programming" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://www.glassofbrain.com/" class="md-tabs__link">
+      Glass Of Brain
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Data Engineering
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../python/" class="md-tabs__link">
+        Python
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../javascript/" class="md-tabs__link">
+        Javascript
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../sql/" class="md-tabs__link">
+        SQL
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../blogging/" class="md-tabs__link">
+        Behind The Blog
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="GOB Programming" class="md-nav__button md-logo" aria-label="GOB Programming" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    GOB Programming
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Dopamineral/learn-programming" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://www.glassofbrain.com/" class="md-nav__link">
+        Glass Of Brain
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Data Engineering</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Data Engineering" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Data Engineering
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          AWS CP Theory
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        AWS CP Theory
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#domain-1-cloud-concepts" class="md-nav__link">
+    Domain 1: Cloud Concepts
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain 1: Cloud Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-define-the-aws-cloud-and-its-value-proposition" class="md-nav__link">
+    1.1 Define the AWS Cloud and its value proposition
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Define the AWS Cloud and its value proposition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#define-the-benefits-of-the-aws-cloud-including" class="md-nav__link">
+    Define the benefits of the AWS cloud including:
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explain-how-the-aws-cloud-allows-users-to-focus-on-business-value" class="md-nav__link">
+    Explain how the AWS cloud allows users to focus on business value
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-identify-aspects-of-aws-cloud-economics" class="md-nav__link">
+    1.2 Identify aspects of AWS Cloud economics
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Identify aspects of AWS Cloud economics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#define-items-that-would-be-part-of-a-total-cost-of-ownership-proposal" class="md-nav__link">
+    Define items that would be part of a Total Cost of Ownership proposal
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-which-operations-will-reduce-costs-by-moving-to-the-cloud" class="md-nav__link">
+    Identify which operations will reduce costs by moving to the cloud
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-explain-the-different-cloud-architecture-design-principles" class="md-nav__link">
+    1.3 Explain the different cloud architecture design principles
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Explain the different cloud architecture design principles">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#explain-the-design-principles" class="md-nav__link">
+    Explain the design principles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-2-security-and-compliance" class="md-nav__link">
+    Domain 2: Security and Compliance
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain 2: Security and Compliance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-define-the-aws-shared-responsibility-model" class="md-nav__link">
+    2.1 Define the AWS shared responsibility model
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Define the AWS shared responsibility model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recognize-the-elements-of-the-shared-responsibility-model" class="md-nav__link">
+    Recognize the elements of the Shared Responsibility Model
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describe-the-customers-responsibly-on-aws" class="md-nav__link">
+    Describe the customer’s responsibly on AWS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describe-aws-responsibilities" class="md-nav__link">
+    Describe AWS responsibilities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-define-aws-cloud-security-and-compliance-concepts" class="md-nav__link">
+    2.2 Define AWS Cloud security and compliance concepts
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 Define AWS Cloud security and compliance concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identify-where-to-find-aws-compliance-information" class="md-nav__link">
+    Identify where to find AWS compliance information
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#at-a-high-level-describe-how-customers-achieve-compliance-on-aws" class="md-nav__link">
+    At a high level, describe how customers achieve compliance on AWS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describe-who-enables-encryption-on-aws-for-a-given-service" class="md-nav__link">
+    Describe who enables encryption on AWS for a given service
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recognize-there-are-services-that-will-aid-in-auditing-and-reporting" class="md-nav__link">
+    Recognize there are services that will aid in auditing and reporting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explain-the-concept-of-least-privileged-access" class="md-nav__link">
+    Explain the concept of least privileged access
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-identify-aws-access-management-capabilities" class="md-nav__link">
+    2.3 Identify AWS access management capabilities
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 Identify AWS access management capabilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#understand-the-purpose-of-user-and-identity-management" class="md-nav__link">
+    Understand the purpose of User and Identity Management
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-identify-resources-for-security-support" class="md-nav__link">
+    2.4 Identify resources for security support
+  </a>
+  
+    <nav class="md-nav" aria-label="2.4 Identify resources for security support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recognize-there-are-different-network-security-capabilities" class="md-nav__link">
+    Recognize there are different network security capabilities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recognize-there-is-documentation-and-where-to-find-it-for-example-best-practiceswhitepapers-official-documents" class="md-nav__link">
+    Recognize there is documentation and where to find it (for example, best practices,whitepapers, official documents)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#know-that-security-checks-are-a-component-of-aws-trusted-advisor" class="md-nav__link">
+    Know that security checks are a component of AWS Trusted Advisor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-3-technology" class="md-nav__link">
+    Domain 3: Technology
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain 3: Technology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-define-methods-of-deploying-and-operating-in-the-aws-cloud" class="md-nav__link">
+    3.1 Define methods of deploying and operating in the AWS Cloud
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 Define methods of deploying and operating in the AWS Cloud">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identify-at-a-high-level-different-ways-of-provisioning-and-operating-in-the-aws-cloud" class="md-nav__link">
+    Identify at a high level different ways of provisioning and operating in the AWS cloud
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-different-types-of-cloud-deployment-models" class="md-nav__link">
+    Identify different types of cloud deployment models
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-connectivity-options" class="md-nav__link">
+    Identify connectivity options
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-define-the-aws-global-infrastructure" class="md-nav__link">
+    3.2 Define the AWS global infrastructure
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 Define the AWS global infrastructure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#describe-the-relationships-among-regions-availability-zones-and-edge-locations" class="md-nav__link">
+    Describe the relationships among Regions, Availability Zones, and Edge Locations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describe-how-to-achieve-high-availability-through-the-use-of-multiple-availability-zones" class="md-nav__link">
+    Describe how to achieve high availability through the use of multiple Availability Zones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describe-when-to-consider-the-use-of-multiple-aws-regions" class="md-nav__link">
+    Describe when to consider the use of multiple AWS Regions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#describe-at-a-high-level-the-benefits-of-edge-locations" class="md-nav__link">
+    Describe at a high level the benefits of Edge Locations
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-identify-the-core-aws-services" class="md-nav__link">
+    3.3 Identify the core AWS services
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 Identify the core AWS services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#describe-the-categories-of-services-on-aws-compute-storage-network-database" class="md-nav__link">
+    Describe the categories of services on AWS (compute, storage, network, database)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-aws-compute-services" class="md-nav__link">
+    Identify AWS compute services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-different-aws-storage-services" class="md-nav__link">
+    Identify different AWS storage services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-aws-networking-services" class="md-nav__link">
+    Identify AWS networking services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-different-aws-database-services" class="md-nav__link">
+    Identify different AWS database services
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-identify-resources-for-technology-support" class="md-nav__link">
+    3.4 Identify resources for technology support
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 Identify resources for technology support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recognize-there-is-documentation-best-practices-whitepapers-aws-knowledge-center-forums-blogs" class="md-nav__link">
+    Recognize there is documentation (best practices, whitepapers, AWS Knowledge Center, forums, blogs)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-the-various-levels-and-scope-of-aws-support" class="md-nav__link">
+    Identify the various levels and scope of AWS support
+  </a>
+  
+    <nav class="md-nav" aria-label="Identify the various levels and scope of AWS support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recognize-there-is-a-partner-network-marketplace-third-party-including-independent-software-vendors-and-system-integrators" class="md-nav__link">
+    Recognize there is a partner network (marketplace, third-party) including Independent Software Vendors and System Integrators
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-sources-of-aws-technical-assistance-and-knowledge-including-professional-servicessolution-architects-training-and-certification-and-the-amazon-partner-network" class="md-nav__link">
+    Identify sources of AWS technical assistance and knowledge including professional services,solution architects, training and certification, and the Amazon Partner Network
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-the-benefits-of-using-aws-trusted-advisor" class="md-nav__link">
+    Identify the benefits of using AWS Trusted Advisor
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-4-billing-and-pricing" class="md-nav__link">
+    Domain 4: Billing and Pricing
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain 4: Billing and Pricing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-compare-and-contrast-the-various-pricing-models-for-aws-for-example-on-demand-instancesreserved-instances-and-spot-instance-pricing" class="md-nav__link">
+    4.1 Compare and contrast the various pricing models for AWS (for example, On-Demand Instances,Reserved Instances, and Spot Instance pricing)
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 Compare and contrast the various pricing models for AWS (for example, On-Demand Instances,Reserved Instances, and Spot Instance pricing)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identify-scenariosbest-fit-for-on-demand-instance-pricing" class="md-nav__link">
+    Identify scenarios/best fit for On-Demand Instance pricing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-scenariosbest-fit-for-reserved-instance-pricing" class="md-nav__link">
+    Identify scenarios/best fit for Reserved-Instance pricing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-scenariosbest-fit-for-spot-instance-pricing" class="md-nav__link">
+    Identify scenarios/best fit for Spot Instance pricing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-recognize-the-various-account-structures-in-relation-to-aws-billing-and-pricing" class="md-nav__link">
+    4.2 Recognize the various account structures in relation to AWS billing and pricing
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Recognize the various account structures in relation to AWS billing and pricing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recognize-that-consolidated-billing-is-a-feature-of-aws-organizations" class="md-nav__link">
+    Recognize that consolidated billing is a feature of AWS Organizations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-how-multiple-accounts-aid-in-allocating-costs-across-departments" class="md-nav__link">
+    Identify how multiple accounts aid in allocating costs across departments
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-identify-resources-available-for-billing-support" class="md-nav__link">
+    4.3 Identify resources available for billing support
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Identify resources available for billing support">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#identify-ways-to-get-billing-support-and-information" class="md-nav__link">
+    Identify ways to get billing support and information
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-where-to-find-pricing-information-on-aws-services" class="md-nav__link">
+    Identify where to find pricing information on AWS services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recognize-that-alarmsalerts-exist" class="md-nav__link">
+    Recognize that alarms/alerts exist
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#identify-how-tags-are-used-in-cost-allocation" class="md-nav__link">
+    Identify how tags are used in cost allocation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#appendix" class="md-nav__link">
+    Appendix
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-services-and-features" class="md-nav__link">
+    AWS services and features
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws_cp_questions/" class="md-nav__link">
+        AWS CP Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../install_dbt/" class="md-nav__link">
+        Install DBT Locally
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../python/">Python</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/fundamentals/" class="md-nav__link">
+        Fundamentals
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../javascript/">Javascript</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/objects/" class="md-nav__link">
+        Objects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/strings/" class="md-nav__link">
+        Strings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/arrays/" class="md-nav__link">
+        Arrays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../sql/">SQL</a>
+          
+            <label for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="SQL" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          SQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sql/language/" class="md-nav__link">
+        Language
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sql/examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../blogging/">Behind The Blog</a>
+          
+            <label for="__nav_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Behind The Blog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Behind The Blog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogging/sandbox/" class="md-nav__link">
+        sandbox
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/Dopamineral/learn-programming/edit/master/docs/data_engineering/aws_cp_theory.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="cloud-practitioner-theory">Cloud Practitioner Theory<a class="headerlink" href="#cloud-practitioner-theory" title="Permanent link">&para;</a></h1>
+<p>Outline here follows the <a href="https://aws.amazon.com/certification/certified-cloud-practitioner/">AWS cloud practitioner study guide.</a> </p>
+<h2 id="domain-1-cloud-concepts">Domain 1: Cloud Concepts<a class="headerlink" href="#domain-1-cloud-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="11-define-the-aws-cloud-and-its-value-proposition">1.1 Define the AWS Cloud and its value proposition<a class="headerlink" href="#11-define-the-aws-cloud-and-its-value-proposition" title="Permanent link">&para;</a></h3>
+<h4 id="define-the-benefits-of-the-aws-cloud-including">Define the benefits of the AWS cloud including:<a class="headerlink" href="#define-the-benefits-of-the-aws-cloud-including" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Security</li>
+<li>Reliability</li>
+<li>High Availability</li>
+<li>Elasticity</li>
+<li>Agility</li>
+<li>Pay-as-you go  pricing</li>
+<li>Scalability</li>
+<li>Global Reach</li>
+<li>Economy of scale</li>
+</ul>
+<h4 id="explain-how-the-aws-cloud-allows-users-to-focus-on-business-value">Explain how the AWS cloud allows users to focus on business value<a class="headerlink" href="#explain-how-the-aws-cloud-allows-users-to-focus-on-business-value" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Shifting technical resources to revenue-generating activities as opposed to managing
+infrastructure</li>
+</ul>
+<h3 id="12-identify-aspects-of-aws-cloud-economics">1.2 Identify aspects of AWS Cloud economics<a class="headerlink" href="#12-identify-aspects-of-aws-cloud-economics" title="Permanent link">&para;</a></h3>
+<h4 id="define-items-that-would-be-part-of-a-total-cost-of-ownership-proposal">Define items that would be part of a Total Cost of Ownership proposal<a class="headerlink" href="#define-items-that-would-be-part-of-a-total-cost-of-ownership-proposal" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Understand the1 role of operational expenses (OpEx)</li>
+<li>Understand the role of capital expenses (CapEx)</li>
+<li>Understand labor costs associated with on-premises operations</li>
+<li>Understand the impact of software licensing costs when moving to the cloud</li>
+</ul>
+<h4 id="identify-which-operations-will-reduce-costs-by-moving-to-the-cloud">Identify which operations will reduce costs by moving to the cloud<a class="headerlink" href="#identify-which-operations-will-reduce-costs-by-moving-to-the-cloud" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Right-sized infrastructure</li>
+<li>Benefits of automation</li>
+<li>Reduce compliance scope (for example, reporting)</li>
+<li>Managed services (for example, RDS, ECS, EKS, DynamoDB)</li>
+</ul>
+<h3 id="13-explain-the-different-cloud-architecture-design-principles">1.3 Explain the different cloud architecture design principles<a class="headerlink" href="#13-explain-the-different-cloud-architecture-design-principles" title="Permanent link">&para;</a></h3>
+<h4 id="explain-the-design-principles">Explain the design principles<a class="headerlink" href="#explain-the-design-principles" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Design for failure</li>
+<li>Decouple components versus monolithic architecture</li>
+<li>Implement elasticity in the cloud versus on-premises</li>
+<li>Think parallel</li>
+</ul>
+<h2 id="domain-2-security-and-compliance">Domain 2: Security and Compliance<a class="headerlink" href="#domain-2-security-and-compliance" title="Permanent link">&para;</a></h2>
+<h3 id="21-define-the-aws-shared-responsibility-model">2.1 Define the AWS shared responsibility model<a class="headerlink" href="#21-define-the-aws-shared-responsibility-model" title="Permanent link">&para;</a></h3>
+<h4 id="recognize-the-elements-of-the-shared-responsibility-model">Recognize the elements of the Shared Responsibility Model<a class="headerlink" href="#recognize-the-elements-of-the-shared-responsibility-model" title="Permanent link">&para;</a></h4>
+<h4 id="describe-the-customers-responsibly-on-aws">Describe the customer’s responsibly on AWS<a class="headerlink" href="#describe-the-customers-responsibly-on-aws" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Describe how the customer’s responsibilities may shift depending on the service used
+(for example with RDS, Lambda, or EC2)</li>
+</ul>
+<h4 id="describe-aws-responsibilities">Describe AWS responsibilities<a class="headerlink" href="#describe-aws-responsibilities" title="Permanent link">&para;</a></h4>
+<h3 id="22-define-aws-cloud-security-and-compliance-concepts">2.2 Define AWS Cloud security and compliance concepts<a class="headerlink" href="#22-define-aws-cloud-security-and-compliance-concepts" title="Permanent link">&para;</a></h3>
+<h4 id="identify-where-to-find-aws-compliance-information">Identify where to find AWS compliance information<a class="headerlink" href="#identify-where-to-find-aws-compliance-information" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Locations of lists of recognized available compliance controls (for example, HIPPA,
+SOCs)</li>
+<li>Recognize that compliance requirements vary among AWS services</li>
+</ul>
+<h4 id="at-a-high-level-describe-how-customers-achieve-compliance-on-aws">At a high level, describe how customers achieve compliance on AWS<a class="headerlink" href="#at-a-high-level-describe-how-customers-achieve-compliance-on-aws" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Identify different encryption options on AWS (for example, In transit, At rest)</li>
+</ul>
+<h4 id="describe-who-enables-encryption-on-aws-for-a-given-service">Describe who enables encryption on AWS for a given service<a class="headerlink" href="#describe-who-enables-encryption-on-aws-for-a-given-service" title="Permanent link">&para;</a></h4>
+<h4 id="recognize-there-are-services-that-will-aid-in-auditing-and-reporting">Recognize there are services that will aid in auditing and reporting<a class="headerlink" href="#recognize-there-are-services-that-will-aid-in-auditing-and-reporting" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Recognize that logs exist for auditing and monitoring (do not have to understand the
+logs)</li>
+<li>Define Amazon CloudWatch, AWS Config, and AWS CloudTrail</li>
+</ul>
+<h4 id="explain-the-concept-of-least-privileged-access">Explain the concept of least privileged access<a class="headerlink" href="#explain-the-concept-of-least-privileged-access" title="Permanent link">&para;</a></h4>
+<h3 id="23-identify-aws-access-management-capabilities">2.3 Identify AWS access management capabilities<a class="headerlink" href="#23-identify-aws-access-management-capabilities" title="Permanent link">&para;</a></h3>
+<h4 id="understand-the-purpose-of-user-and-identity-management">Understand the purpose of User and Identity Management<a class="headerlink" href="#understand-the-purpose-of-user-and-identity-management" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Access keys and password policies (rotation, complexity)</li>
+<li>Multi-Factor Authentication (MFA)</li>
+<li>AWS Identity and Access Management (IAM)</li>
+<li>Groups/users</li>
+<li>Roles</li>
+<li>Policies, managed policies compared to custom policies</li>
+<li>Tasks that require use of root accounts
+Protection of root accounts</li>
+</ul>
+<h3 id="24-identify-resources-for-security-support">2.4 Identify resources for security support<a class="headerlink" href="#24-identify-resources-for-security-support" title="Permanent link">&para;</a></h3>
+<h4 id="recognize-there-are-different-network-security-capabilities">Recognize there are different network security capabilities<a class="headerlink" href="#recognize-there-are-different-network-security-capabilities" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Native AWS services (for example, security groups, Network ACLs, AWS WAF)</li>
+<li>3<sup>rd</sup> party security products from the AWS Marketplace</li>
+</ul>
+<h4 id="recognize-there-is-documentation-and-where-to-find-it-for-example-best-practiceswhitepapers-official-documents">Recognize there is documentation and where to find it (for example, best practices,whitepapers, official documents)<a class="headerlink" href="#recognize-there-is-documentation-and-where-to-find-it-for-example-best-practiceswhitepapers-official-documents" title="Permanent link">&para;</a></h4>
+<ul>
+<li>AWS Knowledge Center, Security Center, security forum, and security blogs</li>
+<li>Partner Systems Integrators</li>
+</ul>
+<h4 id="know-that-security-checks-are-a-component-of-aws-trusted-advisor">Know that security checks are a component of AWS Trusted Advisor<a class="headerlink" href="#know-that-security-checks-are-a-component-of-aws-trusted-advisor" title="Permanent link">&para;</a></h4>
+<h2 id="domain-3-technology">Domain 3: Technology<a class="headerlink" href="#domain-3-technology" title="Permanent link">&para;</a></h2>
+<h3 id="31-define-methods-of-deploying-and-operating-in-the-aws-cloud">3.1 Define methods of deploying and operating in the AWS Cloud<a class="headerlink" href="#31-define-methods-of-deploying-and-operating-in-the-aws-cloud" title="Permanent link">&para;</a></h3>
+<h4 id="identify-at-a-high-level-different-ways-of-provisioning-and-operating-in-the-aws-cloud">Identify at a high level different ways of provisioning and operating in the AWS cloud<a class="headerlink" href="#identify-at-a-high-level-different-ways-of-provisioning-and-operating-in-the-aws-cloud" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Programmatic access, APIs, SDKs, AWS Management Console, CLI, Infrastructure as Code</li>
+</ul>
+<h4 id="identify-different-types-of-cloud-deployment-models">Identify different types of cloud deployment models<a class="headerlink" href="#identify-different-types-of-cloud-deployment-models" title="Permanent link">&para;</a></h4>
+<ul>
+<li>All in with cloud/cloud native</li>
+<li>Hybrid</li>
+<li>On-premises</li>
+</ul>
+<h4 id="identify-connectivity-options">Identify connectivity options<a class="headerlink" href="#identify-connectivity-options" title="Permanent link">&para;</a></h4>
+<ul>
+<li>VPN</li>
+<li>AWS Direct Connect</li>
+<li>Public internet</li>
+</ul>
+<h3 id="32-define-the-aws-global-infrastructure">3.2 Define the AWS global infrastructure<a class="headerlink" href="#32-define-the-aws-global-infrastructure" title="Permanent link">&para;</a></h3>
+<h4 id="describe-the-relationships-among-regions-availability-zones-and-edge-locations">Describe the relationships among Regions, Availability Zones, and Edge Locations<a class="headerlink" href="#describe-the-relationships-among-regions-availability-zones-and-edge-locations" title="Permanent link">&para;</a></h4>
+<h4 id="describe-how-to-achieve-high-availability-through-the-use-of-multiple-availability-zones">Describe how to achieve high availability through the use of multiple Availability Zones<a class="headerlink" href="#describe-how-to-achieve-high-availability-through-the-use-of-multiple-availability-zones" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Recall that high availability is achieved by using multiple Availability Zones</li>
+<li>Recognize that Availability Zones do not share single points of failure</li>
+</ul>
+<h4 id="describe-when-to-consider-the-use-of-multiple-aws-regions">Describe when to consider the use of multiple AWS Regions<a class="headerlink" href="#describe-when-to-consider-the-use-of-multiple-aws-regions" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Disaster recovery/business continuity</li>
+<li>Low latency for end-users</li>
+<li>Data sovereignty</li>
+</ul>
+<h4 id="describe-at-a-high-level-the-benefits-of-edge-locations">Describe at a high level the benefits of Edge Locations<a class="headerlink" href="#describe-at-a-high-level-the-benefits-of-edge-locations" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Amazon CloudFront</li>
+<li>AWS Global Accelerator</li>
+</ul>
+<h3 id="33-identify-the-core-aws-services">3.3 Identify the core AWS services<a class="headerlink" href="#33-identify-the-core-aws-services" title="Permanent link">&para;</a></h3>
+<h4 id="describe-the-categories-of-services-on-aws-compute-storage-network-database">Describe the categories of services on AWS (compute, storage, network, database)<a class="headerlink" href="#describe-the-categories-of-services-on-aws-compute-storage-network-database" title="Permanent link">&para;</a></h4>
+<h4 id="identify-aws-compute-services">Identify AWS compute services<a class="headerlink" href="#identify-aws-compute-services" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Recognize there are different compute families</li>
+<li>Recognize the different services that provide compute (for example, AWS Lambda
+compared to Amazon Elastic Container Service (Amazon ECS), or Amazon EC2, etc.)</li>
+<li>Recognize that elasticity is achieved through Auto Scaling</li>
+<li>Identify the purpose of load balancers</li>
+</ul>
+<h4 id="identify-different-aws-storage-services">Identify different AWS storage services<a class="headerlink" href="#identify-different-aws-storage-services" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Describe Amazon S3</li>
+<li>Describe Amazon Elastic Block Store (Amazon EBS)</li>
+<li>Describe Amazon S3 Glacier</li>
+<li>Describe AWS Snowball</li>
+<li>Describe Amazon Elastic File System (Amazon EFS)</li>
+<li>Describe AWS Storage Gateway</li>
+</ul>
+<h4 id="identify-aws-networking-services">Identify AWS networking services<a class="headerlink" href="#identify-aws-networking-services" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Identify VPC</li>
+<li>Identify security groups</li>
+<li>Identify the purpose of Amazon Route 53</li>
+<li>Identify VPN, AWS Direct Connect</li>
+</ul>
+<h4 id="identify-different-aws-database-services">Identify different AWS database services<a class="headerlink" href="#identify-different-aws-database-services" title="Permanent link">&para;</a></h4>
+<p>o Install databases on Amazon EC2 compared to AWS managed databases
+o Identify Amazon RDS
+o Identify Amazon DynamoDB
+o Identify Amazon Redshift</p>
+<h3 id="34-identify-resources-for-technology-support">3.4 Identify resources for technology support<a class="headerlink" href="#34-identify-resources-for-technology-support" title="Permanent link">&para;</a></h3>
+<h4 id="recognize-there-is-documentation-best-practices-whitepapers-aws-knowledge-center-forums-blogs">Recognize there is documentation (best practices, whitepapers, AWS Knowledge Center, forums, blogs)<a class="headerlink" href="#recognize-there-is-documentation-best-practices-whitepapers-aws-knowledge-center-forums-blogs" title="Permanent link">&para;</a></h4>
+<h3 id="identify-the-various-levels-and-scope-of-aws-support">Identify the various levels and scope of AWS support<a class="headerlink" href="#identify-the-various-levels-and-scope-of-aws-support" title="Permanent link">&para;</a></h3>
+<ul>
+<li>AWS Abuse</li>
+<li>AWS support cases</li>
+<li>Premium support</li>
+<li>Technical Account Managers</li>
+</ul>
+<h4 id="recognize-there-is-a-partner-network-marketplace-third-party-including-independent-software-vendors-and-system-integrators">Recognize there is a partner network (marketplace, third-party) including Independent Software Vendors and System Integrators<a class="headerlink" href="#recognize-there-is-a-partner-network-marketplace-third-party-including-independent-software-vendors-and-system-integrators" title="Permanent link">&para;</a></h4>
+<h4 id="identify-sources-of-aws-technical-assistance-and-knowledge-including-professional-servicessolution-architects-training-and-certification-and-the-amazon-partner-network">Identify sources of AWS technical assistance and knowledge including professional services,solution architects, training and certification, and the Amazon Partner Network<a class="headerlink" href="#identify-sources-of-aws-technical-assistance-and-knowledge-including-professional-servicessolution-architects-training-and-certification-and-the-amazon-partner-network" title="Permanent link">&para;</a></h4>
+<h4 id="identify-the-benefits-of-using-aws-trusted-advisor">Identify the benefits of using AWS Trusted Advisor<a class="headerlink" href="#identify-the-benefits-of-using-aws-trusted-advisor" title="Permanent link">&para;</a></h4>
+<h2 id="domain-4-billing-and-pricing">Domain 4: Billing and Pricing<a class="headerlink" href="#domain-4-billing-and-pricing" title="Permanent link">&para;</a></h2>
+<h3 id="41-compare-and-contrast-the-various-pricing-models-for-aws-for-example-on-demand-instancesreserved-instances-and-spot-instance-pricing">4.1 Compare and contrast the various pricing models for AWS (for example, On-Demand Instances,Reserved Instances, and Spot Instance pricing)<a class="headerlink" href="#41-compare-and-contrast-the-various-pricing-models-for-aws-for-example-on-demand-instancesreserved-instances-and-spot-instance-pricing" title="Permanent link">&para;</a></h3>
+<h4 id="identify-scenariosbest-fit-for-on-demand-instance-pricing">Identify scenarios/best fit for On-Demand Instance pricing<a class="headerlink" href="#identify-scenariosbest-fit-for-on-demand-instance-pricing" title="Permanent link">&para;</a></h4>
+<h4 id="identify-scenariosbest-fit-for-reserved-instance-pricing">Identify scenarios/best fit for Reserved-Instance pricing<a class="headerlink" href="#identify-scenariosbest-fit-for-reserved-instance-pricing" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Describe Reserved-Instances flexibility</li>
+<li>Describe Reserved-Instances behavior in AWS Organizations</li>
+</ul>
+<h4 id="identify-scenariosbest-fit-for-spot-instance-pricing">Identify scenarios/best fit for Spot Instance pricing<a class="headerlink" href="#identify-scenariosbest-fit-for-spot-instance-pricing" title="Permanent link">&para;</a></h4>
+<h3 id="42-recognize-the-various-account-structures-in-relation-to-aws-billing-and-pricing">4.2 Recognize the various account structures in relation to AWS billing and pricing<a class="headerlink" href="#42-recognize-the-various-account-structures-in-relation-to-aws-billing-and-pricing" title="Permanent link">&para;</a></h3>
+<h4 id="recognize-that-consolidated-billing-is-a-feature-of-aws-organizations">Recognize that consolidated billing is a feature of AWS Organizations<a class="headerlink" href="#recognize-that-consolidated-billing-is-a-feature-of-aws-organizations" title="Permanent link">&para;</a></h4>
+<h4 id="identify-how-multiple-accounts-aid-in-allocating-costs-across-departments">Identify how multiple accounts aid in allocating costs across departments<a class="headerlink" href="#identify-how-multiple-accounts-aid-in-allocating-costs-across-departments" title="Permanent link">&para;</a></h4>
+<h3 id="43-identify-resources-available-for-billing-support">4.3 Identify resources available for billing support<a class="headerlink" href="#43-identify-resources-available-for-billing-support" title="Permanent link">&para;</a></h3>
+<h4 id="identify-ways-to-get-billing-support-and-information">Identify ways to get billing support and information<a class="headerlink" href="#identify-ways-to-get-billing-support-and-information" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Cost Explorer, AWS Cost and Usage Report, Amazon QuickSight, third-party partners,
+and AWS Marketplace tools</li>
+<li>Open a billing support case</li>
+<li>The role of the Concierge for AWS Enterprise Support Plan customers</li>
+</ul>
+<h4 id="identify-where-to-find-pricing-information-on-aws-services">Identify where to find pricing information on AWS services<a class="headerlink" href="#identify-where-to-find-pricing-information-on-aws-services" title="Permanent link">&para;</a></h4>
+<ul>
+<li>AWS Simple Monthly Calculator</li>
+<li>AWS Services product pages</li>
+<li>AWS Pricing API</li>
+</ul>
+<h4 id="recognize-that-alarmsalerts-exist">Recognize that alarms/alerts exist<a class="headerlink" href="#recognize-that-alarmsalerts-exist" title="Permanent link">&para;</a></h4>
+<h4 id="identify-how-tags-are-used-in-cost-allocation">Identify how tags are used in cost allocation<a class="headerlink" href="#identify-how-tags-are-used-in-cost-allocation" title="Permanent link">&para;</a></h4>
+<h2 id="appendix">Appendix<a class="headerlink" href="#appendix" title="Permanent link">&para;</a></h2>
+<p>Which key tools, technologies, and concepts might be covered on the exam?
+The following is a non-exhaustive list of the tools and technologies that could appear on the exam. This list
+is subject to change and is provided to help you understand the general scope of services, features, or
+technologies on the exam. The general tools and technologies in this list appear in no particular order.
+AWS services are grouped according to their primary functions. While some of these technologies will likely
+be covered more than others on the exam, the order and placement of them in this list are no indication of
+relative weight or importance:</p>
+<ul>
+<li>APIs</li>
+<li>Cost Explorer</li>
+<li>AWS Cost and Usage Report</li>
+<li>AWS Command Line Interface (CLI)</li>
+<li>Elastic Load Balancers</li>
+<li>Amazon EC2 instance types (for example, Reserved, On-Demand, Spot)</li>
+<li>AWS global infrastructure (for example, AWS Regions, Availability Zones)</li>
+<li>Infrastructure as Code (IaC)</li>
+<li>Amazon Machine Images (AMIs)</li>
+<li>AWS Management Console</li>
+<li>AWS Marketplace</li>
+<li>AWS Professional Services</li>
+<li>AWS Personal Health Dashboard</li>
+<li>Security groups</li>
+<li>AWS Service Catalog</li>
+<li>AWS Service Health Dashboard</li>
+<li>Service quotas</li>
+<li>AWS software development kits (SDKs)</li>
+<li>AWS Support Center</li>
+<li>AWS Support tiers</li>
+<li>Virtual private networks (VPNs)</li>
+</ul>
+<h2 id="aws-services-and-features">AWS services and features<a class="headerlink" href="#aws-services-and-features" title="Permanent link">&para;</a></h2>
+<p>Analytics:</p>
+<ul>
+<li>Amazon Athena</li>
+<li>Amazon Kinesis</li>
+<li>Amazon QuickSight</li>
+</ul>
+<p>Application Integration:</p>
+<ul>
+<li>Amazon Simple Notification Service (Amazon SNS)</li>
+<li>Amazon Simple Queue Service (Amazon SQS)</li>
+</ul>
+<p>Compute and Serverless:</p>
+<ul>
+<li>AWS Batch</li>
+<li>Amazon EC2</li>
+<li>AWS Elastic Beanstalk</li>
+</ul>
+<p>AWS Lambda</p>
+<ul>
+<li>Amazon Lightsail</li>
+<li>Amazon WorkSpaces</li>
+</ul>
+<p>Containers:</p>
+<ul>
+<li>Amazon Elastic Container Service (Amazon ECS)</li>
+<li>Amazon Elastic Kubernetes Service (Amazon EKS)</li>
+<li>AWS Fargate</li>
+</ul>
+<p>Database:</p>
+<ul>
+<li>Amazon Aurora</li>
+<li>Amazon DynamoDB</li>
+<li>Amazon ElastiCache</li>
+<li>Amazon RDS</li>
+<li>Amazon Redshift</li>
+</ul>
+<p>Developer Tools:</p>
+<ul>
+<li>AWS CodeBuild</li>
+<li>AWS CodeCommit</li>
+<li>AWS CodeDeploy</li>
+<li>AWS CodePipeline</li>
+<li>AWS CodeStar</li>
+</ul>
+<p>Customer Engagement:</p>
+<ul>
+<li>Amazon Connect</li>
+</ul>
+<p>Management, Monitoring, and Governance:</p>
+<ul>
+<li>AWS Auto Scaling</li>
+<li>AWS Budgets</li>
+<li>AWS CloudFormation</li>
+<li>AWS CloudTrail</li>
+<li>Amazon CloudWatch</li>
+<li>AWS Config</li>
+<li>AWS Cost and Usage Report</li>
+<li>Amazon EventBridge (Amazon CloudWatch Events)</li>
+<li>AWS License Manager</li>
+<li>AWS Managed Services</li>
+<li>AWS Organizations</li>
+<li>AWS Secrets Manager</li>
+<li>AWS Systems Manager</li>
+<li>AWS Systems Manager Parameter Store</li>
+<li>AWS Trusted Advisor</li>
+</ul>
+<p>Networking and Content Delivery:</p>
+<ul>
+<li>Amazon API Gateway</li>
+<li>Amazon CloudFront</li>
+<li>AWS Direct Connect</li>
+<li>Amazon Route 53</li>
+<li>Amazon VPC</li>
+</ul>
+<p>Security, Identity, and Compliance:</p>
+<ul>
+<li>AWS Artifact</li>
+<li>AWS Certificate Manager (ACM)</li>
+<li>AWS CloudHSM</li>
+<li>Amazon Cognito</li>
+<li>Amazon Detective</li>
+<li>Amazon GuardDuty</li>
+<li>AWS Identity and Access Management (IAM)</li>
+<li>Amazon Inspector</li>
+<li>AWS License Manager</li>
+<li>Amazon Macie</li>
+<li>AWS Shield</li>
+<li>AWS WAF</li>
+</ul>
+<p>Storage:</p>
+<ul>
+<li>AWS Backup</li>
+<li>Amazon Elastic Block Store (Amazon EBS)</li>
+<li>Amazon Elastic File System (Amazon EFS)</li>
+<li>Amazon S3</li>
+<li>Amazon S3 Glacier</li>
+<li>AWS Snowball Edge</li>
+<li>AWS Storage Gateway </li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Data Engineering" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Data Engineering
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../aws_cp_questions/" class="md-footer__link md-footer__link--next" aria-label="Next: AWS CP Questions" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              AWS CP Questions
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.indexes", "toc.integrate", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.078830c0.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1244 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://programming.glassofbrain.com/data_engineering/install_dbt/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.0, mkdocs-material-8.5.6">
+    
+    
+      
+        <title>Install DBT Locally - GOB Programming</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.20d9efc8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Poppins";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="amber">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#install-dbt-locally" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="GOB Programming" class="md-header__button md-logo" aria-label="GOB Programming" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            GOB Programming
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Install DBT Locally
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="" data-md-color-primary="white" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9v1Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Dopamineral/learn-programming" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="https://www.glassofbrain.com/" class="md-tabs__link">
+      Glass Of Brain
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../" class="md-tabs__link md-tabs__link--active">
+        Data Engineering
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../python/" class="md-tabs__link">
+        Python
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../javascript/" class="md-tabs__link">
+        Javascript
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../sql/" class="md-tabs__link">
+        SQL
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../blogging/" class="md-tabs__link">
+        Behind The Blog
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="GOB Programming" class="md-nav__button md-logo" aria-label="GOB Programming" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    GOB Programming
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Dopamineral/learn-programming" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://www.glassofbrain.com/" class="md-nav__link">
+        Glass Of Brain
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../">Data Engineering</a>
+          
+            <label for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Data Engineering" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Data Engineering
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws_cp_theory/" class="md-nav__link">
+        AWS CP Theory
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../aws_cp_questions/" class="md-nav__link">
+        AWS CP Questions
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Install DBT Locally
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Install DBT Locally
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#short-overview-if-you-know-what-youre-doing" class="md-nav__link">
+    Short overview (if you know what you're doing)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step1-install-the-correct-python-version" class="md-nav__link">
+    Step1: Install the correct python version.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-a-virtual-environment" class="md-nav__link">
+    Step 2: Create a virtual environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step3-installing-dbt" class="md-nav__link">
+    Step3: Installing DBT
+  </a>
+  
+    <nav class="md-nav" aria-label="Step3: Installing DBT">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-dbt-for-snowflake" class="md-nav__link">
+    Installing dbt for snowflake
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hooking-up-dbt-to-snowflake" class="md-nav__link">
+    Hooking up dbt to snowflake
+  </a>
+  
+    <nav class="md-nav" aria-label="Hooking up dbt to snowflake">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#set-up-snowflake-before-you-fire-up-dbt" class="md-nav__link">
+    Set up snowflake before you fire up dbt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fire-up-dbt" class="md-nav__link">
+    Fire up dbt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirm-if-this-worked" class="md-nav__link">
+    Confirm if this worked
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-next-steps" class="md-nav__link">
+    Step 4: Next steps:
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../python/">Python</a>
+          
+            <label for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Python" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Python
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python/fundamentals/" class="md-nav__link">
+        Fundamentals
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../javascript/">Javascript</a>
+          
+            <label for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Javascript" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Javascript
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/objects/" class="md-nav__link">
+        Objects
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/strings/" class="md-nav__link">
+        Strings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../javascript/arrays/" class="md-nav__link">
+        Arrays
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../sql/">SQL</a>
+          
+            <label for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="SQL" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          SQL
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sql/language/" class="md-nav__link">
+        Language
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sql/examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_7" type="checkbox" id="__nav_7" checked>
+      
+      
+      
+        
+          
+            
+          
+        
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../blogging/">Behind The Blog</a>
+          
+            <label for="__nav_7">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Behind The Blog" data-md-level="1">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          Behind The Blog
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blogging/sandbox/" class="md-nav__link">
+        sandbox
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  <a href="https://github.com/Dopamineral/learn-programming/edit/master/docs/data_engineering/install_dbt.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="install-dbt-locally">Install DBT locally<a class="headerlink" href="#install-dbt-locally" title="Permanent link">&para;</a></h1>
+<p>Installing DBT locally succesfully isn't that aweful if you understand why it can be so absolutely aweful.
+At the end of the day it's just a python thing so we will treat it as such and install it as the simple python thing that it is! </p>
+<p>You need just a few steps to do it succesfully:</p>
+<ul>
+<li>Install the <strong>correct</strong> version of python (the version that dbt will work with)</li>
+<li>Make a virtual environment (whatever that means)</li>
+<li>Install DBT like you would any other python thing (however you're supposed to do that). </li>
+</ul>
+<h2 id="short-overview-if-you-know-what-youre-doing">Short overview (if you know what you're doing)<a class="headerlink" href="#short-overview-if-you-know-what-youre-doing" title="Permanent link">&para;</a></h2>
+<ul>
+<li>install pytnon3.10</li>
+<li><code>python3.10 -m venv .venv</code></li>
+<li><code>source .venv/bin/activate</code></li>
+<li><code>pip install dbt-snowflake</code></li>
+<li>link it to your snowflake account according to the dbt prompt</li>
+</ul>
+<h2 id="step1-install-the-correct-python-version">Step1: Install the correct python version.<a class="headerlink" href="#step1-install-the-correct-python-version" title="Permanent link">&para;</a></h2>
+<p>It turns out DBT will not work if you use anything other than <strong>python3.10</strong> so we'll need to install that first. This is how you do it on mac.</p>
+<div class="admonition note">
+<p class="admonition-title">Fun fact</p>
+<p>The B in DBT actually means "bomb". If you try to install dbt without taking proper precautions, it will quite litereally explode. </p>
+</div>
+<p>One thing you can do is in your terminal to see your current python version is type the following:   </p>
+<blockquote>
+<p><code>python3 --version</code><br />
+<em>output: <code>&gt;&gt; Python 3.11.0</code></em></p>
+</blockquote>
+<p>!!! 
+As you can see above, my current python version is very cool but will cause dbt to explode, no bueno. So we need to install another python version. </p>
+<ol>
+<li>Get python 3.10.7 from the <a href="https://www.python.org/">official python site</a><ul>
+<li>Navigate to downloads&gt;MacOS</li>
+<li>Scroll down to the bottom of the screen and find "python3.10.7"</li>
+<li>Or go straight to <a href="https://www.python.org/downloads/release/python-3107/">the python 3.10.7 page</a></li>
+<li>Then scroll down to the "Files" table and find "macOS 64-bit universal2 installer"</li>
+<li>Download it and launch it. </li>
+</ul>
+</li>
+<li>Install python3.10.7<ul>
+<li>Go to your download folders where you downloaded the <code>python-3.10.7-macos11.pkg</code> file. </li>
+<li>Double click the thing</li>
+<li>A screen will pop open where you can click continue a couple of times. </li>
+<li>Click continue a couple of times until the installation is complete. </li>
+<li>When it's done a folder might pop up with all of the things you just installed, you can close this. Or not, do whatever you like.</li>
+</ul>
+</li>
+<li>
+<p>Confirm that python 3.10.7 is installed</p>
+<ul>
+<li>Open a <em>new</em> terminal</li>
+<li>Let me repeat, open a <em>new</em> terminal, because your old terminal might not see the newly installed things yet. </li>
+<li>type<blockquote>
+<p><code>python3 --version</code>
+<em>output: <code>&gt;&gt; Python 3.11.0</code></em> !!! THE WRONG ONE, WHY!!!?? -- don't worry everything will be ok. </p>
+</blockquote>
+</li>
+<li>Ok if it still shows the wrong python version, don't worry that's completely normal. </li>
+<li>If it does show the correct version of python then well congratulations. </li>
+<li>To check that python3.10.7 really really is installed you can specify which python to use to do things. </li>
+<li>Instead of writing python3, you can also write python3.10. Try that now:<blockquote>
+<p><code>python3.10 --version</code>
+output: <code>Python 3.10.7</code> -- Succes! </p>
+</blockquote>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If the above didn't work for some reason try to retrace your steps and reinstall python 3.10.7. <br />
+If it still doesn't work. Contact me, Robert or someone else to help because oh boy you will need it </p>
+</div>
+<p>With the correct version of python installed you're now ready for the next step.</p>
+</li>
+</ol>
+<h2 id="step-2-create-a-virtual-environment">Step 2: Create a virtual environment<a class="headerlink" href="#step-2-create-a-virtual-environment" title="Permanent link">&para;</a></h2>
+<p>What is a virtual environment even?</p>
+<p>Whenever you install stuff in python the files are put in "the environment". This is just a folder where whatever packages are stored when you install them with <code>pip install numpy</code> for example. When you then write something like <code>import numpy</code> in your python scripts it will know where to look in "the environment" for the package that it needs. </p>
+<p>Now in real life sometimes code can get a bit complicated and package version "so and so" will start to break when you try to use it with the newest version "this one cool package". Or sometimes you might want to make an app with only a handfull of all of te thousands of packages that you've been installing in your "environment". </p>
+<p>That's where "virtual environments" come in. You create an entirely new space in your computer, you step into it and whenever you <code>pip install &lt;some package&gt;</code> it will be installed in an entirely new and entirely fresh "environment". And as a bonus, it's really easy to recreate virtual environements with all the necessary packages so they just work, no matter what machine they are on. But that's not needed for today.</p>
+<p>Now remember that DBT is a bomb? Bombs are especially good to put inside virtual environments. This way when they explode you only have to worry about the few things that are going on inside this isolated "virtual environment" that you've installed it in. </p>
+<p>Let's make a virtual environment.</p>
+<ol>
+<li>
+<p>Go to the location where you want to make your dbt project.</p>
+<blockquote>
+<p><code>cd Documents/programming/python/</code> (this is where I play around with code)</p>
+</blockquote>
+</li>
+<li>
+<p>Create the virtual environment.</p>
+<ul>
+<li>
+<p>Don't copy the below code just yet, this is just to explain how the script works</p>
+<blockquote>
+<p><code>python3.10 -m venv kjhakdsjfhfkajsd</code></p>
+<blockquote>
+<p><code>python3.10</code> : this part says that you want to use python3.10 to make the virtual environment<br />
+<code>-m venv</code> : this part means that you want to "-m" use a python module called "venv". This is the thing that will magically make a virtual environment<br />
+<code>kjhakdsjfhfkajsd</code> : this is the name of our environment, which is very beautiful.</p>
+</blockquote>
+</blockquote>
+</li>
+<li>
+<p>Ok you can copy this thing now</p>
+<blockquote>
+<p><code>python3.10 -m venv .venv</code>
+This creates a virtual environment inside a hidden folder ".venv" </p>
+</blockquote>
+</li>
+<li>You can view the folder that's created by typing <code>ls -la</code> in the terminal. This will show all stuff in your current directory including the hidden folders. </li>
+<li>You don't have to do this inside a hidden folder btw. <code>python3.10 -m venv venv</code> also works nicely. I just prefer to make my virtual envs in hidden folders because vscode sometimes has issues recognizing them when they are in normal folders, but watever you want will work.</li>
+</ul>
+</li>
+<li>
+<p>Activate the virtual environment</p>
+<ul>
+<li>You've created the virtual environment but you still need to "activate" it so you're actually inside it before you do anything else. </li>
+<li>copy the following if you want<blockquote>
+<p><code>source .venv/bin/activate</code></p>
+<blockquote>
+<p><code>source</code>: this is a command to execute some file, we want to execute the file that "activates" our virtual environment<br />
+<code>.venv</code>: this is the name of your virtual environment  (if you named it <em>venv</em> or <em>kjhsdkjfh</em> then change this part)
+<code>/bin/activate</code>: this is the location of the "activation" thing we want to activate with the <code>source</code> command.</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>You should now be inside your virtual environment.</p>
+<ul>
+<li><code>/Documents/programming/python &gt;&gt;</code> : before activating the environment</li>
+<li>
+<p><code>(.venv) /Documents/programming/python &gt;&gt;</code> : after activating the environment </p>
+</li>
+<li>
+<p>You can see that you're in your virtual environment by these brackets that appear before your prompt.</p>
+</li>
+<li>Or if you've done some fancy stuff to customize your terminal it will show in some other way. </li>
+</ul>
+</li>
+</ol>
+<p>In summary:
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> &lt;location that you want&gt;
+python3.10 -m venv &lt;name you want ot call your virtual environment&gt;
+<span class="nb">source</span> &lt;name of virtual environment&gt;/bin/activate
+</code></pre></div></p>
+<p>Summary for a virtual environment named ".venv"
+<div class="highlight"><pre><span></span><code>python3.10 -m venv .venv
+<span class="nb">source</span> .venv/bin/activate
+</code></pre></div></p>
+<h2 id="step3-installing-dbt">Step3: Installing DBT<a class="headerlink" href="#step3-installing-dbt" title="Permanent link">&para;</a></h2>
+<p>Time to install the bomb</p>
+<p>We will basically be follwing <a href="https://docs.getdbt.com/docs/get-started/pip-install">the tuturial of the official DBT docs</a></p>
+<p>Just as you would install a normal python thing with <code>pip install &lt;normal python thing&gt;</code>
+We will install dbt with <code>pip install dbt</code></p>
+<div class="admonition error">
+<p class="admonition-title">wait don't do it just yet</p>
+<p>Except! <code>pip install dbt</code> doesn't work anymore for some reason and it will explode. Don't do this. 
+Read more about this here: [DBT Documentation]</p>
+</div>
+<h3 id="installing-dbt-for-snowflake">Installing dbt for snowflake<a class="headerlink" href="#installing-dbt-for-snowflake" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Go to your folder location and activate your virtual environment like you just learnt.
+<div class="highlight"><pre><span></span><code>pip install --upgrade pip
+pip install dbt-snowflake
+</code></pre></div></li>
+<li>That was it, you now have dbt ready to go inside the virtual environment. </li>
+</ol>
+<h3 id="hooking-up-dbt-to-snowflake">Hooking up dbt to snowflake<a class="headerlink" href="#hooking-up-dbt-to-snowflake" title="Permanent link">&para;</a></h3>
+<p>To succesfully do this you'll need a snowflake account, maybe a trial account if you're just starting out.<br />
+<a href="https://signup.snowflake.com/">Create a trial account here and follow the instructions by snowflake</a></p>
+<h4 id="set-up-snowflake-before-you-fire-up-dbt">Set up snowflake before you fire up dbt<a class="headerlink" href="#set-up-snowflake-before-you-fire-up-dbt" title="Permanent link">&para;</a></h4>
+<ul>
+<li>You'll need to have some idea of how snowflake works before you start doing this. Check out some of their fundamental trainings.</li>
+<li>Other than that you'll need some info before you set up the dbt:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Information</th>
+<th>Have this ready at hand before continueing</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Snowflake account</td>
+<td><code>https://&lt;this_value&gt;.snowflakecomputing.com</code></td>
+</tr>
+<tr>
+<td>Snowflake username</td>
+<td><code>myusername</code></td>
+</tr>
+<tr>
+<td>Snowflake password</td>
+<td><code>mysupersecretpassword</code></td>
+</tr>
+<tr>
+<td>Role</td>
+<td><code>Accountadming | Sysadmin | etc..</code></td>
+</tr>
+<tr>
+<td>Database name</td>
+<td>"make this one whatever"</td>
+</tr>
+<tr>
+<td>Schema</td>
+<td>Define this one or use the public default</td>
+</tr>
+<tr>
+<td>Warehouse Name</td>
+<td>Pick one from snowflake</td>
+</tr>
+</tbody>
+</table>
+<h4 id="fire-up-dbt">Fire up dbt<a class="headerlink" href="#fire-up-dbt" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Alright let's start with the fun stuff, run dbt init to start a project and follow their instructions and fill in the information that you should have gathered above.
+<div class="highlight"><pre><span></span><code>dbt init
+</code></pre></div></li>
+<li>Now DBT has a dummy default setting ready to go so to check if the installation worked simply run the follwing.
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span> &lt;whatever you called your dbt project&gt;
+dbt run
+</code></pre></div></li>
+</ul>
+<h4 id="confirm-if-this-worked">Confirm if this worked<a class="headerlink" href="#confirm-if-this-worked" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Now check snowflake and you should see a new table created called <code>MY_FIRST_DBT_MODEL</code></li>
+</ul>
+<div class="admonition success">
+<p class="admonition-title">You did it!</p>
+<p>If this worked, please let me know! 
+If the tutorial sucked, please let me know as well and I'll make it better</p>
+</div>
+<h2 id="step-4-next-steps">Step 4: Next steps:<a class="headerlink" href="#step-4-next-steps" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Connect this to a git repo, should be easy enough. </li>
+<li>If it's not that easy let me know and I'll add that step into this tutorial </li>
+</ul>
+<p>Good luck! </p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../aws_cp_questions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: AWS CP Questions" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              AWS CP Questions
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../python/" class="md-footer__link md-footer__link--next" aria-label="Next: Python" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Python
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.indexes", "toc.integrate", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.5bf1dace.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.078830c0.min.js"></script>
+      
+    
+  </body>
+</html>
